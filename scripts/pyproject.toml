@@ -25,12 +25,6 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 
-[project.urls]
-Homepage = "https://github.com/KranzL/uberblick"
-Repository = "https://github.com/KranzL/uberblick"
-Changelog = "https://github.com/KranzL/uberblick/blob/main/CHANGELOG.md"
-Issues = "https://github.com/KranzL/uberblick/issues"
-
 dependencies = [
     "snowflake-connector-python>=3.6,<4",
     "click>=8.0,<9",
@@ -47,6 +41,12 @@ dev = [
     "pytest>=8.0,<9",
     "pytest-mock>=3.0,<4",
 ]
+
+[project.urls]
+Homepage = "https://github.com/KranzL/uberblick"
+Repository = "https://github.com/KranzL/uberblick"
+Changelog = "https://github.com/KranzL/uberblick/blob/main/CHANGELOG.md"
+Issues = "https://github.com/KranzL/uberblick/issues"
 
 [project.scripts]
 uberblick = "uberblick.cli:main"
