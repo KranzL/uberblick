@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uberblick"
+version = "1.0.0"
+description = "Read-only Snowflake role and access auditor"
+readme = {text = "Read-only Snowflake role and access auditor. Generates a self-contained HTML field report covering findings, role impersonation, blast radius, atlas, and snapshot diffs.", content-type = "text/plain"}
+license = "MIT"
+requires-python = ">=3.10"
+authors = [{name = "Luke Kranz"}]
+keywords = ["snowflake", "rbac", "access-control", "audit", "security", "compliance"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Topic :: Database",
+    "Topic :: Security",
+    "Topic :: System :: Systems Administration",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+[project.urls]
+Homepage = "https://github.com/KranzL/uberblick"
+Repository = "https://github.com/KranzL/uberblick"
+Changelog = "https://github.com/KranzL/uberblick/blob/main/CHANGELOG.md"
+Issues = "https://github.com/KranzL/uberblick/issues"
+
+dependencies = [
+    "snowflake-connector-python>=3.6,<4",
+    "click>=8.0,<9",
+    "python-dotenv>=1.0,<2",
+    "rich>=13.0,<15",
+    "duckdb>=0.10,<2",
+    "pydantic>=2.0,<3",
+    "pyarrow>=14,<25",
+    "pandas>=2.0,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0,<9",
+    "pytest-mock>=3.0,<4",
+]
+
+[project.scripts]
+uberblick = "uberblick.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,37 @@
+-- Minimum Snowflake setup for Uberblick.
+--
+-- Run as ACCOUNTADMIN. Creates a dedicated read-only role, service user, and
+-- XS warehouse so the auditor never reuses an admin's session.
+--
+-- Pin the password (or switch to key-pair auth via ALTER USER) before use.
+
+USE ROLE ACCOUNTADMIN;
+
+CREATE ROLE IF NOT EXISTS UBERBLICK_RO
+  COMMENT = 'Read-only role used by the Uberblick auditor.';
+
+GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE TO ROLE UBERBLICK_RO;
+
+CREATE WAREHOUSE IF NOT EXISTS UBERBLICK_WH
+  WAREHOUSE_SIZE = XSMALL
+  AUTO_SUSPEND = 60
+  AUTO_RESUME = TRUE
+  INITIALLY_SUSPENDED = TRUE
+  COMMENT = 'Auditor warehouse. Auto-suspends in 60s.';
+
+GRANT USAGE ON WAREHOUSE UBERBLICK_WH TO ROLE UBERBLICK_RO;
+
+CREATE USER IF NOT EXISTS UBERBLICK_USER
+  PASSWORD = 'CHANGE_ME_BEFORE_USE'
+  MUST_CHANGE_PASSWORD = FALSE
+  DEFAULT_ROLE = UBERBLICK_RO
+  DEFAULT_WAREHOUSE = UBERBLICK_WH
+  COMMENT = 'Service account for Uberblick. Read-only, single role.';
+
+GRANT ROLE UBERBLICK_RO TO USER UBERBLICK_USER;
+
+ALTER USER UBERBLICK_USER SET TYPE = SERVICE;
+
+-- Verify with:
+--   USE ROLE UBERBLICK_RO;
+--   SELECT COUNT(*) FROM SNOWFLAKE.ACCOUNT_USAGE.ROLES;
