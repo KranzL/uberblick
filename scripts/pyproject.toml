@@ -26,7 +26,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "snowflake-connector-python>=3.6,<4",
+    "snowflake-connector-python>=3.6,<5",
     "click>=8.0,<9",
     "python-dotenv>=1.0,<2",
     "rich>=13.0,<15",
