@@ -32,7 +32,7 @@ dependencies = [
     "rich>=13.0,<15",
     "duckdb>=0.10,<2",
     "pydantic>=2.0,<3",
-    "pyarrow>=14,<25",
+    "pyarrow>=14,<26",
     "pandas>=2.0,<3",
 ]
 
